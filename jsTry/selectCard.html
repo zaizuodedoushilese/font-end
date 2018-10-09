@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Select card</title>
+    <style>
+      #selectD div{
+        width:200px;
+        height:200px;
+        border:2px solid #ccc;
+        margin:10px;
+        display:none;
+      }
+      .active{
+        background:yellow;
+      }
+    </style>
+    <script>
+      window.onload = function(){
+        var oDiv = document.getElementById("selectD");
+        var oIn = oDiv.getElementsByTagName("input");
+        var oCd = oDiv.getElementsByTagName("div");
+
+        var inputNum = oIn.length;
+        for (var i=0; i<inputNum; i++){
+          oIn[i].index = i;
+          oIn[i].onclick = function(){
+            for(var j=0; j<inputNum; j++){
+              oIn[j].className = "";
+              oCd[j].style.display = "none";
+            }
+            this.className = "active";
+            oCd[this.index].style.display = "block";
+          };
+        }
+
+
+        //ul select
+        var oUl = document.getElementById("ulSelect");
+        var oLi = oUl.getElementsByTagName("li");
+        var oUd = document.getElementById("content");
+
+        var contentArray = ["content_1","content_2","content_3","content_4"];
+        var liNum = oLi.length;
+        for(var i=0; i<liNum; i++){
+          oLi[i].index = i;
+          oLi[i].onmouseover = function(){
+            for (var i=0; i<liNum; i++){
+               oLi[i].className ="";
+             }
+
+            this.className ="active";
+            oUd.innerHTML = contentArray[this.index];
+          };
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <div id="selectD">
+      <input type="button" value="S1"/>
+      <input type="button" value="S2"/>
+      <input type="button" value="S3"/>
+      <input type="button" value="S4"/>
+      <div style="display:block">dd_1</div>
+      <div>dd_2</div>
+      <div>dd_3</div>
+      <div>dd_4</div>
+    </div>
+
+    <hr>
+
+    <div>
+      <ul id="ulSelect">
+        <li>li_1</li>
+        <li>li_2</li>
+        <li>li_3</li>
+        <li>li_4</li>
+      </ul>
+      <div id="content">content_1</div>
+    </div>
+  </body>
+</html>
