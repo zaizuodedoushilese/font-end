@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>arguments</title>
+    <script>
+      function sum(){
+        var res=0;
+        alert(arguments.length);
+        for (var i=0; i<arguments.length; i++){
+          res += arguments[i];
+        }
+        return res;
+      }
+      alert(sum(12,343,234,22));
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

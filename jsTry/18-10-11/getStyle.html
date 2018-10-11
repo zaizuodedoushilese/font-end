@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>get un-inline style</title>
+    <style>
+      div {width: 400px;}
+      #div1 {width:200px; height:200px; background:red;}
+    </style>
+    <script>
+      function getStyle(obj, name){
+        if(obj.currentStyle){
+          //IE
+          return obj.currentStyle[name];
+        } else {
+          //Chrome FF
+          return getComputedStyle(obj, false)[name];
+        }
+      }
+
+      window.onload = function(){
+        var oDiv = document.getElementById('div1');
+        //alert(oDiv.style.width);
+
+        //复合样式：background（img color ...）
+        alert(getStyle(oDiv, 'backgroundColor'));
+      };
+    </script>
+
+  </head>
+  <body>
+    <div id="div1"/>
+  </body>
+</html>
