@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>array</title>
+    <script>
+      var arr = [2,3,4];
+      //末尾追加
+      //arr.push(5);
+
+      //末尾删除
+      // arr.pop();
+
+      //头部删除
+      //arr.shift();
+
+      //头部追加
+      arr.unshift(1)
+      console.log(arr);
+
+
+      var arrNew = [1,2,3,4,5,6];
+      //删除： splice(起点，长度)
+      //arrNew.splice(2, 3);
+
+      //插入：splice(起点，0，元素...)
+      arrNew.splice(2, 0, 'a','b','c');
+
+      //替换：splice(起点，长度，元素...)
+      arrNew.splice(2, 1, 'a','b','c');
+      console.log(arrNew);
+
+
+      var preArr = [1,2,3];
+      var sufArr = [4,5,6];
+      //数组拼接
+      console.log(preArr.concat(sufArr));
+
+
+      //转字符串连接
+      var arrJoin = [025, 400, 9966];
+      console.log(arrJoin.join('-'));
+      //结果居然是 25-400-9966 ！！！！！！！！！！！！！！！！
+
+
+      //排序
+      var arrS = ['good', 'alpha', 'async', 'friend', 'noodle'];
+      console.log(arrS.sort());
+
+      var arrSnum = [2,44,55,67,122];
+      //会被强转成 字符串去比较
+      arrSnum.sort()
+
+      //数字数组排序
+      arrSnum.sort(function(a, b){
+        if(a<b) {
+          return -1;
+        } else if(a>b) {
+          return 1;
+        } else {
+          return 0;
+        }
+        // -1, 1 只要是负数或者正数都可以，所以简化成如下形式
+        //return a-b;
+      });
+
+      console.log(arrSnum);
+
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
