@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>数字时钟</title>
+    <style>
+      #dd {
+        width:150px;
+        height:50px;
+        border:1px solid red;
+        text-align: center;
+      }
+    </style>
+    <script>
+      function toDouble(n){
+        if(n < 10){
+          return '0'+ n;
+        } else {
+          return ''+ n;
+        }
+      }
+
+      window.onload = function(){
+        function showTime(){
+          var date = new Date();
+          //年月日
+          var day = date.getFullYear() + "年" + toDouble(date.getMonth()+1)
+          + "月" + toDouble(date.getDate()) + "日";
+          console.log(date.getDay());
+
+          //时分秒
+           var time = toDouble(date.getHours()) + ":" + toDouble(date.getMinutes())
+           + ":" + toDouble(date.getSeconds());
+
+          var oSpan1 = document.getElementById('date');
+          var oSpan2 = document.getElementById('clock');
+
+          //oSpan1.innerHTML = day;
+          oSpan2.innerHTML = time;
+        }
+        //showTime();
+        //setInterval(showTime, 1000);
+      };
+
+      var oSpan1 = document.getElementById('date');
+      var oSpan2 = document.getElementById('clock');
+
+      oSpan1.innerHTML = "day";
+      oSpan2.innerHTML = "time";
+    </script>
+  </head>
+  <body>
+    <div id="dd">
+      <span id="date"/>
+      <span id="clock"> test</span>
+    </div>
+  </body>
+</html>

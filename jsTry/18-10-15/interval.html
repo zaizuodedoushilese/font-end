@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>定时器</title>
+    <script>
+      function show(){
+        console.log('定时器 ');
+      }
+      //定时型
+      //setInterval(show, 1000);
+      //延迟型
+      //setTimeout(show, 1000);
+      window.onload = function(){
+        var oBtn1 = document.getElementById('btn1');
+        var oBtn2 = document.getElementById('btn2');
+        var timer = null;
+
+        oBtn1.onclick = function(){
+          timer = setInterval(show, 1000);
+        };
+        oBtn2.onclick = function(){
+          clearInterval(timer);
+          //clearTimeout(...);
+        };
+
+      };
+    </script>
+  </head>
+  <body>
+    <input id="btn1" type="button" value="start"/>
+    <input id="btn2" type="button" value="terminate"/>
+  </body>
+</html>
