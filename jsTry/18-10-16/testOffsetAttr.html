@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>test offset attribute</title>
+    <style>
+      #dd{
+        width:200px;
+        height:159px;
+        background:red;
+        position:absolute;
+        left:200px;
+        top:150px;
+        margin: 50px;
+      }
+    </style>
+    <script>
+      window.onload = function(){
+        var oDiv = document.getElementById('dd');
+        console.log("offsetLeft: " + oDiv.offsetLeft);     //200+50
+        console.log("offsetTop: " + oDiv.offsetTop);       //150
+        console.log("offsetWidth: " + oDiv.offsetWidth);   //200
+        console.log("offsetHeight: " + oDiv.offsetHeight); //159
+      };
+
+    </script>
+  </head>
+  <body>
+    <div id="dd">
+    </div>
+  </body>
+</html>

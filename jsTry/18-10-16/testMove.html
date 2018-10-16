@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>test offset attribute</title>
+    <style>
+      #dd{
+        width:200px;
+        height:159px;
+        background:red;
+        position:absolute;
+        left:200px;
+        top:150px;
+      }
+    </style>
+    <script>
+      setInterval(function(){
+        var oDiv = document.getElementById('dd');
+        oDiv.style.left = oDiv.offsetLeft+8+'px';
+      }, 40);
+    </script>
+  </head>
+  <body>
+    <div id="dd">
+    </div>
+  </body>
+</html>
