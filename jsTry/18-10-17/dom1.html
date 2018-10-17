@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>chile nodes and parent node</title>
+    <style>
+      #div1 {
+        width: 200px;
+        height: 200px;
+        background-color: #ccc;
+        margin: 150px;
+        /* position: relative; */
+      }
+      #div2 {
+        width: 50px;
+        height: 50px;
+        background-color: red;
+        /* position: absolute;
+        left: 100px;
+        top: 300px; */
+      }
+    </style>
+    <script>
+      window.onload=function(){
+        var oUl = document.getElementById('ul1');
+        console.log('childNodes size : ' + oUl.childNodes.length);    // 9 (IE 6-8 反而是4)
+        console.log('children size : ' + oUl.children.length);      //4
+
+        //childNodes
+        var ulChildren = oUl.childNodes;
+        for(var i= 0; i<ulChildren.length; i++){
+          console.log('No.' + i + ' type: ' + ulChildren[i].nodeType);
+          //nodeType 1: Element/ 3:text()
+          if(ulChildren[i].nodeType == 1){
+            ulChildren[i].style.background = 'red';
+          }
+        }
+
+        //parentNode
+        var oOl = document.getElementById('ol1');
+        var aA = oOl.getElementsByTagName('a');
+        for(var i=0; i<aA.length; i++){
+          aA[i].onclick = function(){
+            this.parentNode.style.display = 'none';
+          };
+        }
+
+        //offsetParent 元素在页面上的实际位置
+        var oDiv2 = document.getElementById('div2');
+        console.log('div2 offsetParent: ' + oDiv2.offsetParent);
+        //取决于是否相对于父级元素定位
+      };
+    </script>
+  </head>
+  <body>
+    <ul id="ul1">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <hr>
+    <ol id="ol1">
+      <li>11<a href="javascript:;">hide</a></li>
+      <li>22<a href="javascript:;">hide</a></li>
+      <li>33<a href="javascript:;">hide</a></li>
+      <li>44<a href="javascript:;">hide</a></li>
+    </ol>
+    <hr>
+    <div id="div1">
+      <div id="div2"></div>
+    </div>
+  </body>
+</html>
