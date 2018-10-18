@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>child and sibling</title>
+    <script>
+      window.onload = function(){
+        var oUl = document.getElementById('ul1');
+        if(oUl.firstElementChild){
+          //高级浏览器
+          oUl.firstElementChild.style.background = 'red';
+        } else {
+          //IE 6-8
+          oUl.firstChild.style.background = 'blue';
+        }
+
+        if(oUl.lastElementChild){
+          oUl.lastElementChild.style.background = '#ccc';
+        } else {
+          oUl.lastChild.style.background = 'yellow';
+        }
+
+        var oLi1 = document.getElementsByTagName('li')[0];
+        if(oLi1.nextElementSibling) {
+          oLi1.nextElementSibling.style.color = 'pink';
+        } else {
+          oLi1.nextSibling.style.color = 'green';
+        }
+
+        var oLi2 = document.getElementsByTagName('li')[3];
+        if(oLi2.previousElementSibling) {
+          oLi2.previousElementSibling.style.color = 'grey';
+        } else {
+          oLi2.previousSibling.style.color = 'violet';
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <ul id="ul1">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+  </body>
+</html>

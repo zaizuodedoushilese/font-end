@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>className</title>
+    <script>
+      //基础版，使用有局限性
+      function getByClass(oParent, sClass){
+        var aRes = [];
+        var aEl = oParent.getElementsByTagName('*');
+        var len = aEl.length;
+        for(var i=0; i<len; i++) {
+          if(aEl[i].className == sClass){
+            aRes.push(aEl[i]);
+          }
+        }
+        return aRes;
+      }
+
+      window.onload = function(){
+        var oUl = document.getElementById('ul1');
+        var aLi = oUl.getElementsByTagName('li');
+        var length = aLi.length;
+        for (var i=0; i<length; i++){
+          if(aLi[i].className == 'box'){
+            aLi[i].style.background = 'red';
+          }
+        }
+
+        var aLiNew = getByClass(oUl, 'ss');
+        for(var i=0; i<aLiNew.length; i++){
+          aLiNew[i].style.background = 'blue';
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <ul id="ul1">
+      <li class="box"></li>
+      <li></li>
+      <li class="ss"></li>
+      <li class="ss"></li>
+      <li></li>
+      <li class="box"></li>
+    </ul>
+  </body>
+</html>
