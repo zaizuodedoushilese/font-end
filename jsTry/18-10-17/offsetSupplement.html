@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8"/>
+    <title>offset value</title>
+    <style>
+      #dd1 {
+        width:50px;
+        height:50px;
+        border:1px solid red;
+		position: fixed;
+		left: 400px;
+      }
+	  
+	  #dd2 {
+        width:50px;
+        height:50px;
+        border:1px solid red;
+		position: absolute;
+      }
+	  
+	  #dd3 {
+        width:50px;
+        height:50px;
+        border:1px solid red;
+		position: absolute;
+		left: 20px;
+      }
+	  
+	  #dd4 {
+        width:50px;
+        height:50px;
+        border:2px solid red;
+		margin: 10px;
+		padding: 5px;
+      }
+    </style>
+    <script>
+		function getStyle(obj, name){
+			if(obj.currentStyle){
+				return obj.currentStyle[name];
+			} else {
+				return getComputedStyle(obj,false)[name];
+			}
+		};
+	
+		window.onload = function(){
+			console.log('body offsetPanrent: ' + document.body.offsetParent);      //<body>: null
+		
+			var oDiv1 = document.getElementById('dd1');					  // 自身是fixed定位
+			console.log('div1 offsetParent: ' + oDiv1.offsetParent);      // 结果： FF: body    IE,Chrome...: null
+			
+			var oDiv2 = document.getElementById('dd2');					  // 自身不是fixed定位， 且父级，祖先级没有定位
+			console.log('div2 offsetParent: ' + oDiv2.offsetParent);      // 结果： FF,IE,Chrome...: body
+			
+			var oDiv3 = document.getElementById('dd3');					  // 自身不是fixed定位， 且父级，祖先级有定位
+			console.log('div3 offsetParent: ' + oDiv3.offsetParent);      // 结果： FF,IE,Chrome...: 离自身最近的定位祖先
+			
+			
+			
+			//offsetWidth =  border-left-width + padding-left + width + padding-right + border-right-width;
+			//offsetHeight =  border-top-width + padding-top + height + padding-bottom + border-bottom-width;
+			
+			var oDiv4 = document.getElementById('dd4');
+			console.log('test ' + oDiv4.offsetWidth);
+			console.log('div4: offsetWidth[' + oDiv4.offsetWidth + '], offsetHeight[' + oDiv4.offsetHeight + '], width['
+						+ getStyle(oDiv4,"width") + '], height[' + getStyle(oDiv4,"height") + '].');    //64,64,50px,50px
+		};
+    </script>
+  </head>
+  <body>
+	<div style="position:absolute; left: 800px;">
+		<div id="dd1">div1</div>
+	</div>
+	<hr>
+	
+	<div style="border:1px dashed #00f; width:100px; height: 80px;">
+		<div>
+			<div id="dd2">div2</div>
+		</div>
+	</div>
+
+	<div style="position:relative; left: 600px; border:1px dashed #00f; width:100px; height: 80px;">
+		<div>
+			<div id="dd3">div3</div>
+		</div>
+	</div>
+
+	<div id="dd4">
+		di4
+	</div>
+  </body>
+</html>
