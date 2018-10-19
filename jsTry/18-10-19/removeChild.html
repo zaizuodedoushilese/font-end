@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>remove dom child</title>
+    <script>
+      window.onload = function(){
+        var oOl = document.getElementById('ol1');
+        var aA = document.getElementsByTagName('a');
+        for(var i=0; i<aA.length; i++){
+          aA[i].onclick = function(){
+            oOl.removeChild(this.parentNode);
+          };
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <ol id="ol1">
+      <li>1<a href="javascript:;">delete</a></li>
+      <li>2<a href="javascript:;">delete</a></li>
+      <li>3<a href="javascript:;">delete</a></li>
+      <li>4<a href="javascript:;">delete</a></li>
+    </ol>
+  </body>
+</html>
