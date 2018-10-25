@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Table Search</title>
+    <script type="text/javascript">
+        window.onload = function(){
+            var oTb = document.getElementById('tb');
+            var oLbl = document.getElementById('key');
+            var oBtn = document.getElementById('btn');
+            var aRow = oTb.tBodies[0].rows;
+            var rowSize = aRow.length;
+
+            oBtn.onclick = function(){
+                var key = oLbl.value.toLowerCase();
+                var items = key.split(' ');
+                if(key.length > 0){
+                    for(var i=0; i<rowSize; i++) {
+                        aRow[i].style.background = '';
+                        for(var j=0; j<items.length; j++) {
+                            if(items[j].trim().length > 0 && aRow[i].cells[1].innerHTML.toLowerCase().search(items[j].trim()) != -1) {
+                                aRow[i].style.background = 'yellow';
+                            }
+                        }
+                    }
+                } else {
+                    alert('Please input your key value');
+                }
+            };
+        };
+    </script>
+  </head>
+  <body>
+    Name: <input type="text" id="key" />
+    <input type="button" id="btn" value="Search">
+    <table id="tb" border="1" width="500">
+      <thead>
+        <tr>
+          <td>No.</td>
+          <td>name</td>
+          <td>age</td>
+          <td>operate</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Amy</td>
+          <td>45</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Drake</td>
+          <td>22</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Joker</td>
+          <td>21</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>lingo</td>
+          <td>36</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>ss</td>
+          <td>21</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

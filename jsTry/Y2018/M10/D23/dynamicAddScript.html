@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Dynamic Script</title>
+    <style>
+      #dd {
+        width: 100px;
+        height: 100px;
+        background: #00f;
+        color: #333;
+      }
+    </style>
+    <script>
+      function loadOuterScript(url) {
+        loadOuterScript.mark = 'outerload';
+        var eScript = document.createElement('script');
+        eScript.id="ds";
+        eScript.src = url;
+        document.body.appendChild(eScript);
+      }
+
+      function loadInnerScript(code) {
+        loadInnerScript.mark = 'innerload';
+        var eScript = document.createElement('script');
+        eScript.id="ds";
+        eScript.innerHTML = code;       //IE8 incompatible 
+        document.body.appendChild(eScript);
+      }
+
+      function removeScript(id){
+        console.log('aaa' + id);
+        var oScript = document.getElementById(id);
+        if(oScript != null){
+          document.body.removeChild(oScript);
+        }
+      }
+
+      window.onload = function(){
+        var oBtn1 = document.getElementById('btn1');
+        var oBtn2 = document.getElementById('btn2');
+        
+        oBtn1.onclick = function(){
+          if(loadOuterScript.mark != 'outerload'){
+            removeScript('ds');
+            loadOuterScript('js/ds.js');
+            loadInnerScript.mark = null;
+          }
+        }
+        
+        oBtn2.onclick = function(){
+          if(loadInnerScript.mark != 'innerload'){
+            removeScript('ds');
+            loadInnerScript("var oDiv = document.getElementById('dd'); oDiv.style.background = '#dd0';");
+            loadOuterScript.mark = null;
+          }
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <div id="dd">test</div>
+    <input id="btn1" type="button" value="动态追加外部脚本"/>
+    <input id="btn2" type="button" value="动态追加内部脚本"/>
+  </body>
+</html>
