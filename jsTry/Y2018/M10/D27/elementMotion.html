@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>js motion</title>
+    <style media="screen">
+      .di{
+        width: 200px;
+        height: 200px;
+        background-color: blue;
+        position: absolute;
+        left: 50px;
+        top: 50px;
+      }
+    </style>
+    <script type="text/javascript">
+      window.onload = function(){
+        var oBtn =  document.getElementById('btn');
+        var oDiv= document.getElementById('dd');
+        var timer = null;
+        oBtn.onclick = function(){
+          var speed = 7;
+
+          clearInterval(timer);   //防止点击后开启多个定时器
+          timer = setInterval(function(){
+            if(oDiv.offsetLeft >= 300){
+              clearInterval(timer);
+            } else {
+              oDiv.style.left = oDiv.offsetLeft + speed + 'px';
+            }
+          },30);
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <input type="button" id="btn" value="Move">
+    <div id="dd" class="di">
+
+    </div>
+  </body>
+</html>
