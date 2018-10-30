@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>img fade in/out</title>
+    <style media="screen">
+      .dd{
+        width: 200px;
+        height: 200px;
+        background: blue;
+        opacity: 0.3;      //other
+        filter:alpha(opacity:30);    //IE 6-8
+      }
+    </style>
+    <script type="text/javascript">
+      var alpha = 30;
+      var timer = null;
+      function motion(target){
+        var oDiv = document.getElementById('dd');
+        clearInterval(timer);
+        var speed;
+        timer = setInterval(function(){
+          if(alpha < target){
+            speed = 5;
+          } else {
+            speed = -5;
+          }
+          if(alpha == target){
+            clearInterval(timer);
+          } else {
+            alpha += speed;
+            oDiv.style.filter = 'alpha(opacity: ' + alpha + ')';
+            oDiv.style.opacity = alpha/100;
+          }
+        },30);
+      }
+
+      window.onload = function(){
+        var oDiv = document.getElementById('dd');
+        oDiv.onmouseover = function(){
+          motion(100);
+        };
+        oDiv.onmouseout = function(){
+          motion(30);
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <div id="dd" class="dd">
+    </div>
+  </body>
+</html>

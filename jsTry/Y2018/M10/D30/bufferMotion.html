@@ -1,0 +1,58 @@
+ <!DOCTYPE html>
+ <html lang="en" dir="ltr">
+   <head>
+     <meta charset="utf-8">
+     <title>buffer motion</title>
+     <style media="screen">
+       #dd1{
+         width: 100px;
+         height: 100px;
+         background: blue;
+         position: absolute;
+         /*left: 0px;*/
+         left: 700px;
+         top: 100px;
+         opacity: 0.3;
+         filter: alpha(opacity:30);
+       }
+
+       .dd2{
+         width:1px;
+         height:300px;
+         position: absolute;
+         left:300px;
+         background: #000;
+       }
+     </style>
+     <script type="text/javascript">
+        window.onload = function(){
+          var oBtn = document.getElementById('btn');
+          var oDiv1 = document.getElementById('dd1');
+          oBtn.onclick = function(){
+            motion(oDiv1);
+
+          };
+        };
+        var timer = null;
+         function motion(obj){
+           //var oDiv = document.getElementById('dd');
+
+           timer = setInterval(function(){
+             console.log('test');
+
+             var speed = (300-obj.offsetLeft)/10;   //向上取整
+             speed = speed>0?Math.ceil(speed): Math.floor(speed);
+             obj.style.left = obj.offsetLeft + speed + 'px';
+             document.title = obj.offsetLeft;
+           }, 30);
+         }
+     </script>
+   </head>
+   <body>
+     <input type="button" id="btn" value="startMove">
+     <div id="dd1">
+     </div>
+     <div class="dd2">
+     </div>
+   </body>
+ </html>

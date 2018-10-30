@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>side share model</title>
+    <style media="screen">
+      .dd{
+        width:150px;
+        height:200px;
+        background: blue;
+        position: absolute;
+        left: -150px;
+      }
+      .ss{
+        width: 20px;
+        height: 60px;
+        position: absolute;
+        background: red;
+        line-height: 20px;
+        right: -20px;
+        top: 70px;
+      }
+    </style>
+    <script type="text/javascript">
+      window.onload = function(){
+        var oDiv = document.getElementById('dd');
+        oDiv.onmouseover = function(){
+          eleMove(0);
+        };
+        oDiv.onmouseout = function(){
+          eleMove(-150);
+        };
+      };
+
+      var timer = null;
+      function eleMove(loc){
+        clearInterval(timer);
+        var oDiv = document.getElementById('dd');
+        timer = setInterval(function(){
+          var speed;
+          if(loc < 0){   //oDiv.offsetLeft < loc
+            speed = -10;
+          } else {
+            speed = 10;
+          }
+          if(oDiv.offsetLeft == loc){
+            clearInterval(timer);
+          } else {
+            oDiv.style.left = oDiv.offsetLeft + speed + 'px';
+          }
+        }, 30);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="dd" class="dd">
+      <span id="ss" class="ss">分享到</span>
+    </div>
+  </body>
+</html>
