@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>move with mouse</title>
+    <style media="screen">
+      .test{
+        width: 50px;
+        height: 50px;
+        background: red;
+        position: absolute;
+      }
+    </style>
+    <script type="text/javascript">
+      window.onload = function(){
+        var oDiv = document.getElementById('dd');
+        document.onmousemove = function(ev){
+          var oEvent = ev || event;
+          var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+          oDiv.style.left = oEvent.clientX + 'px';   //clientX 可是区域坐标
+          oDiv.style.top = oEvent.clientY + scrollTop + 'px';
+        };
+      };
+    </script>
+  </head>
+  <body style="width:100%; height: 2000px">
+    <div class="test" id="dd">
+
+    </div>
+  </body>
+</html>

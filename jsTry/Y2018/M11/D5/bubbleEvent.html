@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" onclick="alert('html');">
+  <head>
+    <meta charset="utf-8">
+    <title>bubble</title>
+    <style media="screen">
+      div {padding: 100px;}
+      .sd {
+        width: 50px;
+        height: 50px;
+        background: #CCC;
+        display: none;
+      }
+    </style>
+    <script type="text/javascript">
+      window.onload = function(){
+        var oBtn = document.getElementById('btn');
+        var oDiv = document.getElementById('dd');
+        oBtn.onclick = function(ev){
+          oDiv.style.display = 'block';
+
+          //取消冒泡
+          var oEvent = ev || event;
+          oEvent.cancelBubble = true ;
+        }
+
+        document.onclick = function(){
+          oDiv.style.display = 'none';
+        };
+      };
+    </script>
+  </head>
+  <body onclick="alert('body');">
+    <div style="background: red;" onclick="alert('div1');">
+      <div style="background: blue;" onclick="alert('div2');">
+        <div style="background: green;" onclick="alert('div3');">
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="button" id="btn" value="显示">
+    <div  id="dd" class="sd">
+  </body>
+</html>
