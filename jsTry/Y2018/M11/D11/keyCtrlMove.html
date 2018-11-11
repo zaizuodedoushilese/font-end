@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>key control element move</title>
+    <style media="screen">
+      .dd{
+        width: 50px;
+        height: 50px;
+        border: 1px solid red;
+        background-color: #ccc;
+        position: absolute;
+      }
+    </style>
+    <script type="text/javascript">
+      document.onkeydown = function(ev){
+        var oEvent = ev || event;
+        var oDiv = document.getElementById('dd');
+        console.log(oEvent.keyCode);
+        if(oEvent.keyCode == 37){
+          oDiv.style.left = oDiv.offsetLeft - 10 + 'px';
+        }
+        if(oEvent.keyCode == 38){
+          oDiv.style.top = oDiv.offsetTop - 10 + 'px';
+        }
+        if(oEvent.keyCode == 39){
+          oDiv.style.left = oDiv.offsetLeft + 10 + 'px';
+        }
+        if(oEvent.keyCode == 40){
+          oDiv.style.top = oDiv.offsetTop + 10 + 'px';
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <div id="dd" class="dd">
+
+    </div>
+  </body>
+</html>

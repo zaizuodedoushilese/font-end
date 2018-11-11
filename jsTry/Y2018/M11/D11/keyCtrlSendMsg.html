@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ctrl+enter to send msg</title>
+    <script type="text/javascript">
+      window.onload = function(){
+        var oTxt = document.getElementById('txt');
+        var oBtn = document.getElementById('btn');
+        var oTxta = document.getElementById('txta');
+        oBtn.onclick = function(){
+          oTxta.value += oTxt.value + '\n';
+          oTxt.value = '';
+        };
+
+        oTxt.onkeydown = function(ev){
+          var oEvent = ev||event;
+          if(oEvent.keyCode == 13 && oEvent.ctrlKey){   //shiftKey,altKey
+            oTxta.value += oTxt.value + '\n';
+            oTxt.value = '';
+          }
+        };
+      };
+
+    </script>
+  </head>
+  <body>
+    <input type="text" id="txt">
+    <input type="button" id="btn" value="提交"><br>
+    <textarea id="txta" rows="8" cols="40"></textarea>
+  </body>
+</html>
