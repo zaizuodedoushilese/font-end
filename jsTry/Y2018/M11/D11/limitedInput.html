@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>limited number input</title>
+    <script type="text/javascript">
+      //数字输入框 如qq号
+      window.onload = function(){
+        var oTxt = document.getElementById('txt');
+        oTxt.onkeydown = function(ev){
+          var oEvent = ev||event;
+          var keyCode = oEvent.keyCode;
+          console.log(keyCode);
+          if(keyCode != 8  && keyCode != 37 && keyCode != 38
+            && keyCode != 39 && keyCode != 40 &&
+           (oEvent.keyCode<48 || oEvent.keyCode>57)){
+            return false;
+          }
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <input type="text" id="txt">
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>prevent default event</title>
+    <style media="screen">
+      .dd{
+        width: 100px;
+        height: 100px;
+        background: #ccc;
+        border: 1px solid black;
+        position: absolute;
+        display: none;
+      }
+    </style>
+    <script type="text/javascript">
+      document.oncontextmenu = function(ev){
+        var oEvent = ev||event;
+        var oDiv = document.getElementById('dd');
+        oDiv.style.display = 'block';
+        oDiv.style.left = oEvent.clientX + 'px';
+        oDiv.style.top = oEvent.clientY + 'px';
+        return false;
+      };
+      document.onclick =  function(){
+        var oDiv = document.getElementById('dd');
+        oDiv.style.display = 'none';
+      };
+    </script>
+  </head>
+  <body>
+    <div id="dd" class="dd">
+      <ul>
+        <li>aaa</li>
+        <li>bbb</li>
+        <li>ccc</li>
+        <li>ddd</li>
+      </ul>
+    </div>
+  </body>
+</html>
