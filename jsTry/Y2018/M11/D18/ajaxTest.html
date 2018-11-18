@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ajax func test</title>
+    <script type="text/javascript" src="js/newAjax.js" />
+    <script type="text/javascript">
+      window.onload = function(){
+        var oBtn = document.getElementById('btn');
+        oBtn.onclick = function(){
+          ajax('GET', 'a.txt', function(str){
+            alert(str);
+          });
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <input type="button" id="btn" value="获取">
+  </body>
+</html>
