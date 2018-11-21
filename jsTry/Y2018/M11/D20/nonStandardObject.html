@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>non standard object</title>
+    <script type="text/javascript">
+      function createPerson(name, age){   //构造函数
+        var obj = new Object();
+        obj.name = name;
+        obj.age = name;
+        obj.showName = function(){
+          console.log("Name: " + this.name);
+        };
+        obj.showAge = function(){
+          console.log("Age: " + this.age);
+        };
+
+        return obj;
+      }
+
+      var person1 = createPerson("wzx", "19");
+      var person2 = createPerson("fc", "18");
+      console.log(person1.showName);
+      console.log(person2.showName);
+      console.log(person1.showName == person2.showName);   //false
+
+      //此种对象构造方法缺点如下
+      //1、没有用 new
+      //2、函数重复--资源浪费
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

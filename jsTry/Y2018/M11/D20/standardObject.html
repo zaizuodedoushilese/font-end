@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>standard object</title>
+    <script type="text/javascript">
+      function Person(name, age){
+        //系统创建
+        //var this = new Object();
+
+        this.name = name;
+        this.age = age;
+
+        //系统返回           解决问题1、new
+        //return this;
+      }
+
+      //解决问题2、函数追加在原型上
+      Person.prototype.showName = function(){
+        console.log(this.name);
+      }
+      Person.prototype.showAge = function(){
+        console.log(this.age);
+      }
+
+      var p1 = new Person('wzx', '19');
+      var p2 = new Person('fc', '10');
+      p1.showName();
+      p2.showAge();
+      console.log(p1.showName == p2.showName);
+    </script>
+  </head>
+  <body>
+      <p>p-1-s <span>child-span</span> p-e</p>
+      <p>p-2-s <div>child-div</div> p-e</p>
+      <p>p-3-s <p>child-p</p> p-e</p>
+  </body>
+</html>
