@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>test ajax</title>
+    <script type="text/javascript">
+      window.onload = function(){
+        let oBtn = document.getElementById('btn');
+        oBtn.onclick = function(){
+          //1 创建对象
+          let xhr = new XMLHttpRequest();
+          console.log('xhr state' + xhr.readyState);    //0 初始状态
+
+          //2 连接
+          xhr.open('GET', 'data/1.txt', true);
+          console.log('xhr state' + xhr.readyState);    //1 连接状态
+
+          //3 发送
+          xhr.send();
+
+          //4 接收
+          xhr.onreadystatechange=function(){
+            console.log('xhr state' + xhr.readyState);       //2 发送请求 。。 3 头接收完成 。。  4 体接收完成
+            if(xhr.readyState ==4){
+              alert(xhr.status);
+            }
+          };
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <input type="button" id="btn" value="request">
+  </body>
+</html>
