@@ -22,7 +22,12 @@
           xhr.onreadystatechange=function(){
             console.log('xhr state' + xhr.readyState);       //2 发送请求 。。 3 头接收完成 。。  4 体接收完成
             if(xhr.readyState ==4){
-              alert(xhr.status);
+              if(xhr.status>= 200 && xhr.status<300 || xhr.status == 304) {     //304: 缓存重定向 not modified
+                alert('success');
+                console.log(xhr.responseText);
+              } else {
+                alert('fail');
+              };
             }
           };
         };
