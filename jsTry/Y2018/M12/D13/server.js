@@ -3,6 +3,7 @@ const http = require('http');
 const url = require('url');
 const mysql = require('mysql');
 const fs = require('fs');
+const reg = require('./regs');
 
 let db = mysql.createPool(
   {
@@ -22,10 +23,10 @@ let httpServer = http.createServer((req, res) => {
     console.log('request to register!');
     let {user, pass} = query;
     //1、数据校验
-    if(!/^\w{2,32}$/.test(user)){
+    if(!reg.username.test(user)){
       res.write(JSON.stringify({code: 1, msg: 'username is not well-formed!'}));
       res.end();
-    } else if(!/^.{6,32}$/.test(pass)) {
+    } else if(!reg.password.test(pass)) {
       res.write(JSON.stringify({code: 1, msg: 'password is not well-formed!'}));
       res.end();
     } else {
@@ -57,10 +58,10 @@ let httpServer = http.createServer((req, res) => {
     console.log('request to login!');
     let {user, pass} = query;
     //1、校验
-    if(!/^\w{2,32}$/.test(user)) {
+    if(!reg.username.test(user)) {
       res.write(JSON.stringify({code: 1, msg: 'username is not well-formed!'}));
       res.end();
-    } else if(!/^.{6,32}$/.test(pass)) {
+    } else if(!reg.password.test(pass)) {
       res.write(JSON.stringify({code: 1, msg: 'password is not well-formed!'}));
       res.end();
     } else {
