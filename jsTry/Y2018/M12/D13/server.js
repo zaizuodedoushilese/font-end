@@ -6,7 +6,7 @@ const fs = require('fs');
 
 let db = mysql.createPool(
   {
-    hos: 'localhost',
+    host: 'localhost',
     user: 'root',
     password: '123456',
     database: 'websocket'
@@ -15,6 +15,7 @@ let db = mysql.createPool(
 
 let httpServer = http.createServer((req, res) => {
   //res.url='/reg?user=wzx&pass=djksj';
+  console.log(req.url);
   let {pathname, query} = url.parse(req.url, true);
   if(pathname == '/reg'){
     //注册接口
@@ -22,28 +23,28 @@ let httpServer = http.createServer((req, res) => {
     let {user, pass} = query;
     //1、数据校验
     if(!/^\w{2,32}$/.test(user)){
-      res.write(JSON.stringify({code: 1, msg: '1 用户名不符合规范！'}));
+      res.write(JSON.stringify({code: 1, msg: 'username is not well-formed!'}));
       res.end();
     } else if(!/^.{6,32}$/.test(pass)) {
-      res.write(JSON.stringify({code: 1, msg: '2 密码不符合规范！'}));
+      res.write(JSON.stringify({code: 1, msg: 'password is not well-formed!'}));
       res.end();
     } else {
       //2、校验用户名重复
-      db.query(`SELECT * FROM user_table WHERE username='${user}'`, (err, data) => {
+      db.query(`SELECT ID FROM user_table WHERE username='${user}'`, (err, data) => {
         if(err) {
-          res.write(JSON.stringify({code: 1, msg: '3 数据库内部错误！'}));
+          res.write(JSON.stringify({code: 1, msg: 'database inner error!'}));
           res.end();
         } else if (data.length > 0) {
-          res.write(JSON.stringify({code: 1, msg: '4 用户名已经被注册！'}));
+          res.write(JSON.stringify({code: 1, msg: 'username has been registered!'}));
           res.end();
         } else {
           //3、注册数据库
           db.query(`INSERT INTO user_table (username, password, online) VALUES('${user}', '${pass}', 0)`, err => {
             if(err){
-              res.write(JSON.stringify({code: 1, msg: '5 内部错误，注册失败！'}));
+              res.write(JSON.stringify({code: 1, msg: 'database inner error, fail to register!'}));
               res.end();
             } else {
-              res.write(JSON.stringify({code: 0, msg: ' fc 520 love you!'}));
+              res.write(JSON.stringify({code: 0, msg: 'congratulation! Success to register'}));
               res.end();
             }
           });
@@ -54,9 +55,45 @@ let httpServer = http.createServer((req, res) => {
   } else if(pathname == '/login'){
     //登录接口
     console.log('request to login!');
+    let {user, pass} = query;
+    //1、校验
+    if(!/^\w{2,32}$/.test(user)) {
+      res.write(JSON.stringify({code: 1, msg: 'username is not well-formed!'}));
+      res.end();
+    } else if(!/^.{6,32}$/.test(pass)) {
+      res.write(JSON.stringify({code: 1, msg: 'password is not well-formed!'}));
+      res.end();
+    } else {
+      //2、取数据
+      db.query(`SELECT ID,password FROM user_table WHERE username='${user}'`, (err, data) => {
+        if(err) {
+          res.write(JSON.stringify({code: 1, msg: 'database inner error!'}));
+          res.end();
+        } else if(data.length == 0) {
+          res.write(JSON.stringify({code: 1, msg: 'username has not been registered!'}));
+          res.end();
+        } else if (data[0].password != pass) {
+          res.write(JSON.stringify({code: 1, msg: 'username or password are incorrect!'}));
+          res.end();
+        } else {
+          //3、设置登录状态
+          db.query(`UPDATE user_table SET online=1 WHERE ID=${data[0].ID}`, err =>{
+            if(err) {
+              res.write(JSON.stringify({code: 1, msg: 'database inner error!'}));
+              res.end();
+            } else {
+              res.write(JSON.stringify({code: 0, msg: 'success to login!'}));
+              res.end();
+            }
+          });
+        }
+      });
+    }
+    console.log('login end!');
   } else {
-    fs.readFile(`www${req.url}`, (err,data) => {
+    fs.readFile(`www${pathname}`, (err,data) => {
       if(err) {
+        console.log('err');
         res.writeHead(404);
         res.write('Not Found!');
       } else {

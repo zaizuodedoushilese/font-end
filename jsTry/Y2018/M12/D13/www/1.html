@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>test websocket register</title>
+    <script src="js/jquery.js" charset="utf-8"></script>
+    <script>
+      $(function (){
+        //register
+        $('#reg').click(function(){
+          $.ajax({
+            url: '/reg',
+            data: {user: $('#user').val(), pass: $('#pass').val()},
+            dataType: 'json',
+            success(res){
+              if(res.code) {         //res.code != 0
+                alert('Fail to regist: ' + res.msg);
+              } else {
+                alert('Success to register');
+              }
+            },
+            error(err){              //通信失败
+              alert('error!');
+            }
+          });
+        });
+
+        //login
+        $('#login').click(function(){
+          $.ajax({
+            url: '/login',
+            data: {user: $('#user').val(), pass: $('#pass').val()},
+            dataType: 'json',
+            success(res){
+              if(res.code) {
+                alert('Fail to login: ' + res.msg);
+              } else {
+                alert('Success to login');
+              }
+            },
+            error(err){
+              alert('error!');
+            }
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    用户：<input type="text" id="user"><br>
+    密码：<input type="password" id="pass"><br>
+    <input type="button" id="reg" value="注册">
+    <input type="button" id="login" value="登录">
+  </body>
+</html>
