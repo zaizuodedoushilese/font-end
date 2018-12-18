@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>test websocket chat</title>
+    <script src="http://localhost:8080/socket.io/socket.io.js" charset="utf-8"></script>
+    <script>
+      let sock = io.connect('ws://localhost:8080/');
+
+      window.onload = function(){
+        let oUser = document.getElementById('user');
+        let oPass = document.getElementById('pass');
+        let oReg = document.getElementById('reg');
+        let oLogin = document.getElementById('login');
+
+        //不能放在onclick事件内，会多次点击
+        sock.on('reg_ret', (code, msg) => {
+          if(code) {
+            alert('注册失败：' + msg);
+          } else {
+            alert(msg);
+          }
+        });
+
+        oReg.onclick = function(){
+          sock.emit('reg', oUser.value, oPass.value);
+        };
+
+        sock.on('login_ret', (code, msg) => {
+          if(code) {
+            alert('登录失败：' + msg);
+          } else {
+            alert(msg)
+          }
+        });
+
+        oLogin.onclick = function(){
+          sock.emit('login', oUser.value, oPass.value);
+        };
+      };
+    </script>
+  </head>
+  <body>
+    用户：<input type="text" id="user"><br>
+    密码：<input type="password" id="pass"><br>
+    <input type="button" id="reg" value="注册">
+    <input type="button" id="login" value="登录">
+  </body>
+</html>
