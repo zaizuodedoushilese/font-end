@@ -28,9 +28,15 @@ let httpServer = http.createServer((req, res) => {
 });
 httpServer.listen(8080);
 
+
+let aSock=[];
 //websocket server
 let wsServer = io.listen(httpServer);
 wsServer.on('connection', sock => {
+  aSock.push(sock);
+  let cur_userName = '';
+  let cur_userID = 0;
+
   //注册
   sock.on('reg', (user, pass) => {
     if(!regs.username.test(user)) {
@@ -76,11 +82,39 @@ wsServer.on('connection', sock => {
               sock.emit('login_ret', 1, '数据库内部错误！');
             } else {
               sock.emit('login_ret', 0, '登录成功！');
+              cur_userID = data[0].ID;
+              cur_userName = user;
             }
           });
         }
       });
     }
-
   });
+
+  //聊天
+  sock.on('chat', txt => {
+    if(!txt) {
+      sock.emit('chat_ret', 1, '消息不能为空！');
+    } else {
+      //广播给所有人
+      aSock.forEach(item => {
+        if(item == sock) return;
+        item.emit('chat', cur_userName, txt);
+      });
+      sock.emit('chat_ret', 0, '发送成功！');
+    };
+  });
+
+  //离线
+  sock.on('disconnect', function(){
+    db.query(`UPDATE user_table SET online=0 WHERE ID=${cur_userID}`, err => {
+      if(err) {
+        console.log('数据库内部错误！');
+      }
+      cur_userID = 0;
+      cur_userName = '';
+
+      aSock = aSock.filter(item => item != sock);
+    });
+  })
 });

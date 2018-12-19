@@ -3,17 +3,29 @@
   <head>
     <meta charset="utf-8">
     <title>test websocket chat</title>
+    <style media="screen">
+      .mine{
+        text-align: right;
+        color: green;
+      }
+    </style>
     <script src="http://localhost:8080/socket.io/socket.io.js" charset="utf-8"></script>
     <script>
       let sock = io.connect('ws://localhost:8080/');
 
       window.onload = function(){
+        let cur_userName = '';
         let oUser = document.getElementById('user');
         let oPass = document.getElementById('pass');
         let oReg = document.getElementById('reg');
         let oLogin = document.getElementById('login');
 
+        let oTxta = document.getElementById('txta');
+        let oChat = document.getElementById('chat');
+        let oUl = document.getElementById('ul');
+
         //不能放在onclick事件内，会多次点击
+        //注册
         sock.on('reg_ret', (code, msg) => {
           if(code) {
             alert('注册失败：' + msg);
@@ -21,21 +33,46 @@
             alert(msg);
           }
         });
-
         oReg.onclick = function(){
           sock.emit('reg', oUser.value, oPass.value);
         };
 
+        //登录
         sock.on('login_ret', (code, msg) => {
           if(code) {
             alert('登录失败：' + msg);
           } else {
-            alert(msg)
+            alert(msg);
+            cur_userName = oUser.value;
           }
         });
-
         oLogin.onclick = function(){
           sock.emit('login', oUser.value, oPass.value);
+        };
+
+        //聊天
+        sock.on('chat_ret', (code, msg) => {
+          if(code) {
+            alert("发送失败：" + msg);
+          } else {
+            let oLi = document.createElement('li');
+            oLi.className = 'mine';
+            oLi.innerHTML = `<h4>${oUser.value}</h4><p>${oTxta.value}</p>`;
+            oUl.appendChild(oLi);
+            oTxta.value='';
+          }
+        });
+        sock.on('chat', (user, txt) => {
+          let oLi = document.createElement('li');
+          oLi.innerHTML = `<h4>${user}</h4><p>${txt}</p>`;
+          oUl.appendChild(oLi);
+        });
+        oChat.onclick = function(){
+          if(!cur_userName){
+            alert('请先登录！');
+          } else {
+            sock.emit('chat', oTxta.value);
+          }
         };
       };
     </script>
@@ -45,5 +82,11 @@
     密码：<input type="password" id="pass"><br>
     <input type="button" id="reg" value="注册">
     <input type="button" id="login" value="登录">
+    <hr>
+    <textarea id="txta" rows="3" cols="30"></textarea>
+    <input type="button" id="chat" value="发送">
+    <ul id='ul'>
+
+    </ul>
   </body>
 </html>
