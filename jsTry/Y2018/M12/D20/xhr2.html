@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ajax file upload</title>
+    <script type="text/javascript">
+      window.onload = function(){
+        var oFl = document.getElementById('fl');
+        var oBtn2 = document.getElementById('btn2');
+
+        oBtn2.onclick = function(){
+          var formData = new FormData();
+          formData.set('file', oFl);
+
+          var xhr = new XMLHttpRequest();
+
+          //xhr.upload 对象：文件上传！
+          var upload = xhr.upload;
+          upload.onload = function(){
+            console.log("suc to upload!");
+          }
+
+          //进度
+          upload.onprogress = function(ev){
+            console.log(ev.loaded, ev.total);
+          };
+
+          xhr.open('post', '3.php', true);
+          xhr.send(formData);
+          xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4) {
+              var status =  xhr.status;
+              if((status >=200 && status < 300) || status == 304) {
+                alert(xhr.responseText);
+              } else {
+                alert('error!');
+              }
+            }
+          };
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <input type="file" id="fl">
+    <input type="button" id="btn2" value="ajax2">
+  </body>
+</html>
