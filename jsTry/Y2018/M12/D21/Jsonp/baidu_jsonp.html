@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>test baidu jsonp by script tag</title>
+    <script>
+      function show(json){
+        var oUl = document.getElementById('ul1');
+        oUl.innerHTML = '';
+        json.s.forEach(str => {
+          let oli = document.createElement('li');
+          oli.innerHTML = str;
+          oUl.appendChild(oli);
+        });
+      }
+
+      window.onload = function(){
+        var oText = document.getElementById('txt');
+        oText.oninput = function(){
+          var oScript = document.createElement('script');
+          oScript.src = `https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=${oText.value}&cb=show`
+          document.head.appendChild(oScript);
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <input type="text" id="txt" >
+    <ul id="ul1">
+
+    </ul>
+  </body>
+</html>

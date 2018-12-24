@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>test ajax cors</title>
+    <script type="text/javascript">
+      window.onload = function(){
+        var oBtn = document.getElementById('btn');
+
+        oBtn.onclick = function(){
+          var xhr = new XMLHttpRequest();
+          xhr.open('post', 'http://localhost:8080', true);
+          xhr.send();
+
+          if(xhr.upload) {
+            console.log('Ajax 2.0');
+          } else {
+            console.log('Ajax 1.0');
+          }
+
+          xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4){
+              if((xhr.status >= 200 && xhr.status < 300) || xhr.status==304) {
+                alert(xhr.responseText);
+              }
+            }
+          }
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <input type="button" id="btn" value="AJAX">
+
+    <h3>Ajax 1.0 请求头</h3>
+    <pre>
+      { accept: '*/*',
+      'accept-encoding': 'gzip, deflate',
+      'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko',
+
+      host: 'localhost:8080',
+      'content-length': '0',
+      dnt: '1',
+      connection: 'Keep-Alive',
+      'cache-control': 'no-cache' }
+    </pre>
+    <h3>Ajax 2.0 请求头</h3>
+    <pre>
+      { host: 'localhost:8080',
+        connection: 'keep-alive',
+        'content-length': '0',
+        origin: 'null',
+        'user-agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Ge
+        cko) Chrome/68.0.3440.106 Safari/537.36',
+        accept: '*/*',
+        'accept-encoding': 'gzip, deflate, br',
+        'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8' }
+    </pre>
+  </body>
+</html>

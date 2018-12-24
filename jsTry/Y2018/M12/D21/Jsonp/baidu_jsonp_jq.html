@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>test baidu jsonp by jquery</title>
+    <script src="js/jquery.js" charset="utf-8"></script>
+    <script>
+      function show(json){
+        $('#ul1').html('');
+        json.s.forEach(str => {
+          $(`<li>${str}</li>`).appendTo('#ul1');
+        });
+      }
+
+      $(function(){
+        $('#txt').on('input', function(){
+          $.ajax({
+            url: 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+            data: {wd: $('#txt').val()},
+            dataType: 'jsonp',
+            jsonp: 'cb',
+            success(json){
+              show(json);
+            },
+            error(){
+              alert('error!');
+            }
+          });
+        });
+
+      });
+
+    </script>
+  </head>
+  <body>
+    <input type="text" id="txt" >
+    <ul id="ul1">
+
+    </ul>
+  </body>
+</html>

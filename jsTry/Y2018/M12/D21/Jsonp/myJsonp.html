@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>test my jsonp</title>
+    <script src="js/jquery.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      $(function(){
+        $.ajax({
+          url: 'http://localhost:8080/sum',
+          data: {a: 78, b: 89},
+          dataType: 'jsonp',
+          jsonp: 'callback',
+          success(num) {
+            alert('The sum is ' + num);
+          },
+          error() {
+            alert('error!');
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
