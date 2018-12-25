@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>navigator geolocation</title>
+    <script type="text/javascript">
+      window.onload = function(){
+        var oBtn = document.getElementById('btn');
+        oBtn.onclick = function(){
+          if(window.navigator.geolocation) {
+
+            //1、getCurrentPosition
+            //2、watchPosition
+            window.navigator.geolocation.getCurrentPosition(function(res){
+              alert('定位成功！');
+              console.log(res);
+            }, function(err){
+              alert('定位失败！');
+            },{
+              //parameters
+              //enableHighAccuracy    高精度
+              //timeout               超时时间
+              //maximumAge            缓存
+            });
+          } else {
+            alert('你的浏览器不支持定位');
+          }
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <input type="button" id="btn" value="定位">
+  </body>
+</html>
