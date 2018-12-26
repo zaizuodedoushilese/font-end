@@ -1,0 +1,48 @@
+.holy-grail {
+  display: flex;
+  flex-direction: column;
+}
+
+.holy-grail_header,
+.holy-grail_footer {
+  flex: 0 0 100%;
+  background-color: #eee;
+}
+
+.holy-grail_body {
+  display: flex;
+}
+
+.holy-grail_sidebar {background-color: #ddd;}
+
+.holy-grail_leftbar {
+  order: 1;
+}
+
+.holy-grail_content {
+  order: 2;
+}
+
+.holy-grail_rightbar {
+  order: 3;
+}
+
+@media all and (min-width: 720px) {
+  .holy-grail_body {
+    flex-direction: row;
+  }
+
+  .holy-grail_sidebar {
+    flex: 0 0 180px;
+  }
+
+  .holy-grail_content {
+    flex: 1;
+  }
+}
+
+@media all and (min-width: 960px) {
+  .holy-grail_sidebar {
+    flex: 0 0 240px;
+  }
+}
