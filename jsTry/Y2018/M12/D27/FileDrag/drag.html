@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>test drag files</title>
+    <style media="screen">
+      .dd {
+        width: 400px;
+        height: 250px;
+        border: 1px dashed #fff;
+        background-color: #ddd;
+        margin: auto;
+        text-align: center;
+        line-height: 250px;
+      }
+    </style>
+    <script type="text/javascript">
+      window.onload = function(){
+        let oDiv = document.getElementById('div1');
+
+        //dragenter     进入
+        //dragleave     离开
+        //dragover      悬停
+        //drop          松手
+        oDiv.addEventListener('dragenter', function(){
+          oDiv.innerHTML = '释放鼠标';
+        }, false);
+
+        oDiv.addEventListener('dragleave', function(){
+          oDiv.innerHTML = '请将文件拖拽至此区域';
+        }, false);
+
+        oDiv.addEventListener('dragover', function(ev){
+          console.log('dragover');
+          ev.preventDefault();
+        }, true);
+
+        oDiv.addEventListener('drop', function(ev){
+          console.log('drop');
+          ev.preventDefault();   //dragover的默认事件也必须阻止，才能禁止拖拽的文件被打开！
+
+          console.log(ev.dataTransfer.files);
+          let oFile = ev.dataTransfer.files[0];
+
+          let fileReader = new FileReader();
+          fileReader.readAsText(oFile);
+          //fileReader.readAsDataURL(oFile);            base64 图片
+          //fileReader.readAsBinaryString(oFile);       上传用
+          //fileReader.readAsArrayBuffer(oFile);        原始二进制数据
+          fileReader.onload = function(){
+            console.log('成功' + this.result);
+          };
+
+          fileReader.onerror = function(){
+            alert('上传文件失败！');
+          };
+        }, true);
+      };
+    </script>
+  </head>
+  <body>
+    <div class="dd" id="div1">
+      请将文件拖拽至此区域
+    </div>
+  </body>
+</html>
